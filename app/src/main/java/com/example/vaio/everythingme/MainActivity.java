@@ -7,8 +7,17 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import me.everything.providers.android.media.Audio;
+import me.everything.providers.android.media.MediaProvider;
+
 public class MainActivity extends AppCompatActivity {
     private ListView listView;
+    private MediaProvider mediaProvider;
+    private List<Audio> listData;
+    private ArrayList<Song> listSong;
 
 
     private void initUI(){
@@ -20,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initUI();
+        mediaProvider= new MediaProvider(this);
+        listData= mediaProvider.getAudios(MediaProvider.Storage.EXTERNAL).getList();
+        listSong= new ArrayList<>();
     }
 
     @Override

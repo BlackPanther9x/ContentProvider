@@ -1,7 +1,7 @@
 package com.example.vaio.everythingme;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private MediaProvider mediaProvider;
     private List<Audio> listData;
     private ArrayList<Song> listSong;
+    private SongAdapter mAdapter;
 
 
     private void initUI(){
@@ -32,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
         mediaProvider= new MediaProvider(this);
         listData= mediaProvider.getAudios(MediaProvider.Storage.EXTERNAL).getList();
         listSong= new ArrayList<>();
+        for(int i=0; i<listData.size(); i++){
+            listSong.add(new Song(listData.get(i).title,listData.get(i).artist));
+        }
+        mAdapter= new SongAdapter(this,listSong);
+        mAdapter.notifyDataSetChanged();
+        listView.setAdapter(mAdapter);
     }
 
     @Override
